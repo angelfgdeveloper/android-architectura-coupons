@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Android_architecture_app</string>
+    <string name="tv_title_offer_main">Lista de Ofertas</string>
 </resources>
