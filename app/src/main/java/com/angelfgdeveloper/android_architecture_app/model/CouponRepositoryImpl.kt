@@ -1,30 +1,19 @@
-package com.angelfgdeveloper.android_architecture_app
+package com.angelfgdeveloper.android_architecture_app.model
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.angelfgdeveloper.android_architecture_app.model.ApiAdapter
+import com.angelfgdeveloper.android_architecture_app.presenter.CouponPresenter
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        supportActionBar?.hide()
+class CouponRepositoryImpl(var couponPresenter: CouponPresenter): CouponRepository {
 
-        // VIEW
-        val rvCoupons: RecyclerView = findViewById(R.id.rvCoupons)
-        rvCoupons.layoutManager = LinearLayoutManager(this)
-        val coupons = ArrayList<Coupon>()
-        // VIEW
-
+    // TODA LA LÓGICA DE CONEXIÓN
+    override fun getCouponsAPI() {
         // CONTROLLER
+        val coupons: ArrayList<Coupon> = ArrayList()
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
         val call = apiService.getCoupons()
@@ -43,12 +32,10 @@ class MainActivity : AppCompatActivity() {
                     val coupon = Coupon(jsonObject)
                     coupons.add(coupon)
                 }
-                // VIEW
-                rvCoupons.adapter = RecyclerCouponsAdapter(coupons, R.layout.card_coupon)
-                // VIEW
+
+                couponPresenter.showCoupons(coupons)
             }
         })
         // CONTROLLER
-
     }
 }

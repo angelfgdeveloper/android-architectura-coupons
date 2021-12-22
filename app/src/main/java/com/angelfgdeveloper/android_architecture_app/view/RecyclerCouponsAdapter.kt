@@ -1,4 +1,4 @@
-package com.angelfgdeveloper.android_architecture_app
+package com.angelfgdeveloper.android_architecture_app.view
 
 import android.content.Intent
 import android.util.Log
@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.angelfgdeveloper.android_architecture_app.model.Coupon
+import com.angelfgdeveloper.android_architecture_app.R
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
-class RecyclerCouponsAdapter(var coupons: ArrayList<Coupon>, var resource: Int) :
+class RecyclerCouponsAdapter(var coupons: List<Coupon>?, var resource: Int) :
     RecyclerView.Adapter<RecyclerCouponsAdapter.CardCouponHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CardCouponHolder {
@@ -19,11 +21,13 @@ class RecyclerCouponsAdapter(var coupons: ArrayList<Coupon>, var resource: Int) 
         return CardCouponHolder(view)
     }
 
-    override fun getItemCount(): Int = coupons.size
+    override fun getItemCount(): Int = coupons?.size ?: 0
 
-    override fun onBindViewHolder(p0: CardCouponHolder, p1: Int) {
-        val coupon = coupons[p1]
-        p0.setDataCard(coupon)
+    override fun onBindViewHolder(p0: CardCouponHolder, position: Int) {
+        val coupon = coupons?.get(position)
+        if (coupon != null) {
+            p0.setDataCard(coupon)
+        }
     }
 
     class CardCouponHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
@@ -45,7 +49,9 @@ class RecyclerCouponsAdapter(var coupons: ArrayList<Coupon>, var resource: Int) 
             if (coupon.image_url.isNotEmpty()) {
                 Picasso.get().load(coupon.image_url).resize(520, 520).centerCrop().into(imgCoupon)
             } else {
-                Picasso.get().load("https://c.cfjump.com/Avatars/ECED3475-931C-41F1-B3CD-513CD7FDFDCA.png").resize(520, 520).centerCrop().into(imgCoupon)
+                Picasso.get()
+                    .load("https://c.cfjump.com/Avatars/ECED3475-931C-41F1-B3CD-513CD7FDFDCA.png")
+                    .resize(520, 520).centerCrop().into(imgCoupon)
             }
 
             tvTitle.text = coupon.title

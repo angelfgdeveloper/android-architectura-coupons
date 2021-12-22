@@ -1,4 +1,4 @@
-package com.angelfgdeveloper.android_architecture_app
+package com.angelfgdeveloper.android_architecture_app.model
 
 import android.annotation.SuppressLint
 import com.google.gson.JsonObject

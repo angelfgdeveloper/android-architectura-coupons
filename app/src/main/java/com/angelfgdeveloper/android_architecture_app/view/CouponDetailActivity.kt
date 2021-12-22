@@ -1,4 +1,4 @@
-package com.angelfgdeveloper.android_architecture_app
+package com.angelfgdeveloper.android_architecture_app.view
 
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import com.angelfgdeveloper.android_architecture_app.model.Coupon
+import com.angelfgdeveloper.android_architecture_app.R
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 

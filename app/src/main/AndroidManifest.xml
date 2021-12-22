@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Android_architecture_app"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".CouponDetailActivity"
+            android:name=".view.CouponDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
