@@ -1,19 +1,25 @@
 package com.angelfgdeveloper.android_architecture_app.model
 
 import android.util.Log
-import com.angelfgdeveloper.android_architecture_app.presenter.CouponPresenter
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CouponRepositoryImpl(var couponPresenter: CouponPresenter): CouponRepository {
+class CouponRepositoryImpl : CouponRepository {
+
+    private var coupons = MutableLiveData<List<Coupon>>()
+    // Subject MutableLiveData
+    // Observers List Coupon
+    // Change List Coupon - MutableLiveData
+    // Observe
 
     // TODA LA LÓGICA DE CONEXIÓN
-    override fun getCouponsAPI() {
+    override fun callCouponsAPI() {
         // CONTROLLER
-        val coupons: ArrayList<Coupon> = ArrayList()
+        val couponsList: ArrayList<Coupon> = ArrayList()
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
         val call = apiService.getCoupons()
@@ -30,12 +36,16 @@ class CouponRepositoryImpl(var couponPresenter: CouponPresenter): CouponReposito
                 offersJsonArray?.forEach { jsonElement: JsonElement ->
                     val jsonObject = jsonElement.asJsonObject
                     val coupon = Coupon(jsonObject)
-                    coupons.add(coupon)
+                    couponsList.add(coupon)
                 }
 
-                couponPresenter.showCoupons(coupons)
+                coupons.value = couponsList
             }
         })
         // CONTROLLER
+    }
+
+    override fun getCoupons(): MutableLiveData<List<Coupon>> {
+        return coupons
     }
 }
