@@ -12,7 +12,6 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 class CouponViewModel : ViewModel() {
-
     private var couponObservable: CouponObservable = CouponObservable()
     private var recyclerCouponsAdapter: RecyclerCouponsAdapter? = null
 
