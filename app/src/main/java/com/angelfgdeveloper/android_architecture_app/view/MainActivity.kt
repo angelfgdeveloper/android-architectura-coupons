@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.angelfgdeveloper.android_architecture_app.R
 import com.angelfgdeveloper.android_architecture_app.databinding.ActivityMainBinding
+import com.angelfgdeveloper.android_architecture_app.model.Coupon
 import com.angelfgdeveloper.android_architecture_app.viewmodel.CouponViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -36,9 +37,10 @@ class MainActivity : AppCompatActivity() {
         // callCoupons
         couponViewModel?.callCoupon()
         // getCoupons - Lista de cupones
-        couponViewModel?.getCoupon()?.observe(this, Observer { coupon ->
-            Log.w("COUPON", coupon.toString())
-            Log.w("COUPON", coupon[0].title)
+        couponViewModel?.getCoupon()?.observe(this, Observer { coupons: List<Coupon> ->
+            Log.w("COUPON", coupons.toString())
+            Log.w("COUPON", coupons[0].title)
+            couponViewModel?.setCouponsInRecyclerAdapter(coupons)
         })
     }
 
